@@ -40,7 +40,6 @@ public class VehicleService {
         if(vehicleUpdateDTO.getBrand() != null) vehicle.setBrand(vehicleUpdateDTO.getBrand());
         if(vehicleUpdateDTO.getModel()!= null) vehicle.setModel(vehicleUpdateDTO.getModel());
         if(vehicleUpdateDTO.getType()!= null) vehicle.setType(vehicleUpdateDTO.getType());
-        if(vehicleUpdateDTO.getStatus()!= null) vehicle.setStatus(vehicleUpdateDTO.getStatus());
         if(vehicleUpdateDTO.getPricePerDay()!= null) vehicle.setPricePerDay(vehicleUpdateDTO.getPricePerDay());
         if(vehicleUpdateDTO.getAdvance()!= null) vehicle.setAdvance(vehicleUpdateDTO.getAdvance());
 

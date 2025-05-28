@@ -9,5 +9,4 @@ public class VehicleUpdateDTO {
     private String type;
     private Float pricePerDay;
     private Float advance;
-    private String status;
 }

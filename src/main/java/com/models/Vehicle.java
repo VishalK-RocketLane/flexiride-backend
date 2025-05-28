@@ -18,7 +18,6 @@ public class Vehicle {
     private String brand;
     private String model;
     private String type;
-    private String status;
     @Column(name="price_per_day")
     private Float pricePerDay;
     private Float advance;
