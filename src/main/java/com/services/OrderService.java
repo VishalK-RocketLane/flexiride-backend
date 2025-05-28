@@ -25,4 +25,8 @@ public class OrderService {
         Optional<Order> order = this.orderRepository.findById(id);
         return order.orElse(null);
     }
+
+    public Order createOrder(Order order) {
+        return this.orderRepository.save(order);
+    }
 }

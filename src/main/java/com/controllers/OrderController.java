@@ -25,4 +25,9 @@ public class OrderController {
     public Order getOrder(@PathVariable UUID id) {
         return this.orderService.getOrder(id);
     }
+
+    @PostMapping("/create")
+    public Order createOrder(@RequestBody Order order) {
+        return this.orderService.createOrder(order);
+    }
 }
