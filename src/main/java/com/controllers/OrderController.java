@@ -16,7 +16,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Order> getAllOrders() {
         return this.orderService.getAllOrders();
     }
