@@ -36,4 +36,9 @@ public class VehicleController {
     public Vehicle updateVehicle(@PathVariable UUID id, @RequestBody VehicleUpdateDTO vehicleUpdateDTO){
         return vehicleService.updateVehicle(id, vehicleUpdateDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteVehicle(@PathVariable UUID id){
+        vehicleService.deleteVehicle(id);
+    }
 }

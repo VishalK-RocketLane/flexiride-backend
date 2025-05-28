@@ -30,6 +30,10 @@ public class VehicleService {
         return this.vehicleRepository.save(vehicle);
     }
 
+    public void deleteVehicle(UUID id) {
+        this.vehicleRepository.deleteById(id);
+    }
+
     public Vehicle updateVehicle(UUID id, VehicleUpdateDTO vehicleUpdateDTO) {
         Optional<Vehicle> record = this.vehicleRepository.findById(id);
         if(record.isEmpty()) {
