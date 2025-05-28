@@ -20,5 +20,6 @@ public class Vehicle {
     private String type;
     private String status;
     @Column(name="price_per_day")
-    private String pricePerDay;
+    private Float pricePerDay;
+    private Float advance;
 }
