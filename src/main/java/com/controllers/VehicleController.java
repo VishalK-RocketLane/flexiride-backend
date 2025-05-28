@@ -14,8 +14,9 @@ public class VehicleController {
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
+
     @GetMapping("/all")
-    public List<Vehicle> GetAllVehicles(){
+    public List<Vehicle> GetAllVehicles() {
         return vehicleService.GetAllVehicles();
     }
 }
