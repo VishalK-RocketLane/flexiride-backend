@@ -5,6 +5,8 @@ import com.repos.VehicleRepository;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class VehicleService {
@@ -14,7 +16,12 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public List<Vehicle> GetAllVehicles(){
+    public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
+    }
+
+    public Vehicle getVehicle(UUID id) {
+        Optional<Vehicle> vehicle = this.vehicleRepository.findById(id);
+        return vehicle.orElse(null);
     }
 }

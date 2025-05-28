@@ -5,6 +5,7 @@ import com.services.VehicleService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/vehicles")
@@ -16,7 +17,13 @@ public class VehicleController {
     }
 
     @GetMapping("/all")
-    public List<Vehicle> GetAllVehicles() {
-        return vehicleService.GetAllVehicles();
+    public List<Vehicle> getAllVehicles() {
+        return vehicleService.getAllVehicles();
     }
+
+    @GetMapping("/{id}")
+    public Vehicle getVehicle(@PathVariable UUID id){
+        return vehicleService.getVehicle(id);
+    }
+
 }
