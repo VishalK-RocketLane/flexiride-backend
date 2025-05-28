@@ -1,6 +1,7 @@
 package com.controllers;
 
-import com.dtos.VehicleUpdateDTO;
+import com.dtos.vehicle.VehicleFilterDTO;
+import com.dtos.vehicle.VehicleUpdateDTO;
 import com.models.Vehicle;
 import com.services.VehicleService;
 import org.springframework.web.bind.annotation.*;
@@ -27,14 +28,19 @@ public class VehicleController {
         return vehicleService.getVehicle(id);
     }
 
+    @PostMapping("/filter")
+    public List<Vehicle> filterVehicles(@RequestBody VehicleFilterDTO vehicleFilterDto){
+        return vehicleService.getFilteredVehicles(vehicleFilterDto);
+    }
+
     @PostMapping("/create")
     public Vehicle createVehicle(@RequestBody Vehicle vehicle){
         return vehicleService.createVehicle(vehicle);
     }
 
     @PostMapping("/{id}")
-    public Vehicle updateVehicle(@PathVariable UUID id, @RequestBody VehicleUpdateDTO vehicleUpdateDTO){
-        return vehicleService.updateVehicle(id, vehicleUpdateDTO);
+    public Vehicle updateVehicle(@PathVariable UUID id, @RequestBody VehicleUpdateDTO vehicleUpdateDto){
+        return vehicleService.updateVehicle(id, vehicleUpdateDto);
     }
 
     @DeleteMapping("/{id}")
