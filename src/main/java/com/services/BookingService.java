@@ -34,6 +34,14 @@ public class BookingService {
         return booking.orElse(null);
     }
 
+    public List<Booking> getBookingsByEmail(String email) {
+        Customer customer = customerRepository.findByEmail(email).orElse(null);
+        if(customer == null) {
+            return null;
+        }
+        return this.bookingRepository.findByCustomerId(customer.getId());
+    }
+
     public Booking createBooking(BookingMakeDTO bookingMakeDto) {
         Booking booking = new Booking();
         Optional<Customer> customer = customerRepository.findByEmail(bookingMakeDto.getEmail());
