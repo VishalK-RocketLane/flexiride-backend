@@ -1,9 +1,14 @@
 package com.specifications;
 
+import com.models.Booking;
 import com.models.Vehicle;
+import com.services.BookingService;
+
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class VehicleSpecification {
     public static Specification<Vehicle> hasTypes(List<String> types) {
@@ -14,6 +19,7 @@ public class VehicleSpecification {
             return root.get("type").in(types);
         };
     }
+
     public static Specification<Vehicle> hasBrands(List<String> brands) {
         return (root, query, cb) -> {
             if(brands == null || brands.isEmpty()) {
@@ -48,4 +54,31 @@ public class VehicleSpecification {
             }
         };
     }
+
+    public static Specification<Vehicle> dateInRange(String startDateString, String endDateString) {
+        LocalDate startDate = startDateString != null ? LocalDate.parse(startDateString) : null;
+        LocalDate endDate = endDateString != null ? LocalDate.parse(endDateString) : null;
+    
+        return (root, query, cb) -> {
+            if (startDate == null || endDate == null) {
+                return null;
+            }
+    
+            // Subquery to find vehicles with conflicting bookings
+            var subquery = query.subquery(UUID.class);
+            var bookingRoot = subquery.from(Booking.class);
+    
+            subquery.select(bookingRoot.get("vehicle").get("id"))
+                    .where(
+                        cb.and(
+                            cb.equal(bookingRoot.get("vehicle").get("id"), root.get("id")),
+                            cb.lessThanOrEqualTo(bookingRoot.get("startDate"), endDate),
+                            cb.greaterThanOrEqualTo(bookingRoot.get("endDate"), startDate)
+                        )
+                    );
+    
+            // Exclude vehicles with overlapping bookings
+            return cb.not(cb.exists(subquery));
+        };
+    }    
 }

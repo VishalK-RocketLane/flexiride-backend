@@ -11,4 +11,6 @@ public class VehicleFilterDTO {
     private List<String> types;
     private Float startPrice;
     private Float endPrice;
+    private String startDate;
+    private String endDate;
 }

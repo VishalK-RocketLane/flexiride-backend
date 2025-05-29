@@ -2,6 +2,7 @@ package com.services;
 
 
 import com.models.Booking;
+import com.models.Vehicle;
 import com.repos.BookingRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,10 @@ public class BookingService {
 
     public Booking createBooking(Booking booking) {
         return this.bookingRepository.save(booking);
+    }
+
+    public List<Booking> getBookingsByVehicle(UUID vehicleId) {
+        Optional<List<Booking>> bookings = bookingRepository.findByVehicleId(vehicleId);
+        return bookings.orElse(null);
     }
 }

@@ -33,7 +33,8 @@ public class VehicleService {
         Specification<Vehicle> spec = Specification.where(VehicleSpecification.hasTypes(vehicleFilterDto.getTypes()))
             .and(VehicleSpecification.hasBrands(vehicleFilterDto.getBrands()))
             .and(VehicleSpecification.hasModels(vehicleFilterDto.getModels()))
-            .and(VehicleSpecification.priceInRange(vehicleFilterDto.getStartPrice(), vehicleFilterDto.getEndPrice()));
+            .and(VehicleSpecification.priceInRange(vehicleFilterDto.getStartPrice(), vehicleFilterDto.getEndPrice()))
+            .and(VehicleSpecification.dateInRange(vehicleFilterDto.getStartDate(), vehicleFilterDto.getEndDate()));
         return this.vehicleRepository.findAll(spec);
     }
 
