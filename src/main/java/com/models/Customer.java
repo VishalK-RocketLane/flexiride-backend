@@ -11,11 +11,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     private String name;
+    @Column(unique = true)
     private String email;
-    private String password;
+    @Column(name = "hashed_password")
+    private String hashedPassword;
 }
