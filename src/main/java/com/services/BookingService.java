@@ -48,4 +48,13 @@ public class BookingService {
 
         return this.bookingRepository.save(booking);
     }
+
+    public Booking cancelBooking(UUID id) {
+        Optional<Booking> booking = this.bookingRepository.findById(id);
+        if(booking.isEmpty()) {
+            return null;
+        }
+        booking.get().setStatus("CANCELLED");
+        return this.bookingRepository.save(booking.get());
+    }
 }

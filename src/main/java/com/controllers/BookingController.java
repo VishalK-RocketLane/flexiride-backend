@@ -31,4 +31,9 @@ public class BookingController {
     public Booking createBooking(@RequestBody BookingMakeDTO bookingMakeDto) {
         return this.bookingService.createBooking(bookingMakeDto);
     }
+
+    @PostMapping("/cancel/{id}")
+    public Booking cancelBooking(@PathVariable UUID id) {
+        return this.bookingService.cancelBooking(id);
+    }
 }
