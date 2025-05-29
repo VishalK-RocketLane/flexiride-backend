@@ -56,7 +56,6 @@ public class VehicleService {
         if(vehicleUpdateDto.getModel()!= null) vehicle.setModel(vehicleUpdateDto.getModel());
         if(vehicleUpdateDto.getType()!= null) vehicle.setType(vehicleUpdateDto.getType());
         if(vehicleUpdateDto.getPricePerDay()!= null) vehicle.setPricePerDay(vehicleUpdateDto.getPricePerDay());
-        if(vehicleUpdateDto.getAdvance()!= null) vehicle.setAdvance(vehicleUpdateDto.getAdvance());
 
         return this.vehicleRepository.save(vehicle);
     }

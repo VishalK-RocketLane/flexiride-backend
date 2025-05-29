@@ -20,5 +20,6 @@ public class Vehicle {
     private String type;
     @Column(name="price_per_day")
     private Float pricePerDay;
-    private Float advance;
+    @Column(name="image_url")
+    private String imageUrl;
 }

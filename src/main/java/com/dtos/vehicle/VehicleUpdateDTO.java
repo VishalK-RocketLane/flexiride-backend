@@ -8,5 +8,5 @@ public class VehicleUpdateDTO {
     private String model;
     private String type;
     private Float pricePerDay;
-    private Float advance;
+    private String imageUrl;
 }
