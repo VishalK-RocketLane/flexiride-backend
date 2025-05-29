@@ -15,24 +15,19 @@ import com.services.CustomerService;
 @RequestMapping("/auth")
 public class AuthController {
     private final CustomerService customerService;
-    
+
     public AuthController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-   @PostMapping("/login")
-   public CustomerDTO login(@RequestBody AuthRequestDTO authRequestDTO) {
-       return customerService.authenticate(authRequestDTO.getEmail(), authRequestDTO.getPassword());
-   }
-
-    @PostMapping("/admin/login")
-    public CustomerDTO adminLogin(@RequestBody AuthRequestDTO authRequestDTO) {
-        if(authRequestDTO.getEmail().equals("admin") && authRequestDTO.getPassword().equals("admin")){
-            return new CustomerDTO(authRequestDTO.getEmail(), "admin"); // TODO: change this to admin dto later, for now just return a dummy dto for admin men
+    @PostMapping("/login")
+    public CustomerDTO login(@RequestBody AuthRequestDTO authRequestDTO) {
+        if (authRequestDTO.getEmail().equals("admin@gmail.com") && authRequestDTO.getPassword().equals("password")) {
+            return new CustomerDTO(authRequestDTO.getEmail(), "Admin", "ADMIN");
         }
-        return null;
+        return customerService.authenticate(authRequestDTO.getEmail(), authRequestDTO.getPassword());
     }
-    
+
     @PostMapping("/register")
     public Customer register(@RequestBody CustomerRegisterDTO customerRegisterDTO) {
         return customerService.registerCustomer(customerRegisterDTO);

@@ -36,7 +36,7 @@ public class CustomerService {
     public CustomerDTO authenticate(String email, String password) {
         Customer customer = customerRepository.findByEmail(email).orElse(null);
         if (customer != null && PasswordUtil.checkPassword(password, customer.getHashedPassword())) {
-            return new CustomerDTO(customer.getEmail(), customer.getName());
+            return new CustomerDTO(customer.getEmail(), customer.getName(), "CUSTOMER");
         }
         return null;
     }
