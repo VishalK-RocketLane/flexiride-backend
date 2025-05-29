@@ -4,6 +4,9 @@ import com.models.Booking;
 import com.models.Vehicle;
 import com.services.BookingService;
 
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
+
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
@@ -64,21 +67,21 @@ public class VehicleSpecification {
                 return null;
             }
     
-            // Subquery to find vehicles with conflicting bookings
-            var subquery = query.subquery(UUID.class);
-            var bookingRoot = subquery.from(Booking.class);
+            Subquery<UUID> subquery = query.subquery(UUID.class);
+            Root<Booking> bookingRoot = subquery.from(Booking.class);
     
-            subquery.select(bookingRoot.get("vehicle").get("id"))
-                    .where(
-                        cb.and(
-                            cb.equal(bookingRoot.get("vehicle").get("id"), root.get("id")),
-                            cb.lessThanOrEqualTo(bookingRoot.get("startDate"), endDate),
-                            cb.greaterThanOrEqualTo(bookingRoot.get("endDate"), startDate)
-                        )
-                    );
+            subquery.select(bookingRoot.get("vehicleId"))
+                .where(
+                    cb.and(
+                        cb.equal(bookingRoot.get("vehicleId"), root.get("id")),
+                        cb.notEqual(bookingRoot.get("status"), "CANCELLED"), 
+                        cb.lessThanOrEqualTo(bookingRoot.get("startDate"), endDate),
+                        cb.greaterThanOrEqualTo(bookingRoot.get("endDate"), startDate)
+                    )
+                );
     
-            // Exclude vehicles with overlapping bookings
             return cb.not(cb.exists(subquery));
         };
-    }    
+    }
+      
 }

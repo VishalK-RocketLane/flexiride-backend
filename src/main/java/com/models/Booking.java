@@ -23,6 +23,5 @@ public class Booking {
     private LocalDate startDate;
     @Column(name="end_date")
     private LocalDate endDate;
-    @Column(name="actual_return_date")
-    private LocalDate actualReturnDate;
+    private String status;
 }

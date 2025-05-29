@@ -1,5 +1,6 @@
 package com.controllers;
 
+import com.dtos.booking.BookingMakeDTO;
 import com.models.Booking;
 import com.services.BookingService;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class BookingController {
     }
 
     @PostMapping("/create")
-    public Booking createBooking(@RequestBody Booking booking) {
-        return this.bookingService.createBooking(booking);
+    public Booking createBooking(@RequestBody BookingMakeDTO bookingMakeDto) {
+        return this.bookingService.createBooking(bookingMakeDto);
     }
 }
