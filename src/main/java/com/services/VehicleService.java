@@ -57,6 +57,7 @@ public class VehicleService {
         if(vehicleUpdateDto.getModel()!= null) vehicle.setModel(vehicleUpdateDto.getModel());
         if(vehicleUpdateDto.getType()!= null) vehicle.setType(vehicleUpdateDto.getType());
         if(vehicleUpdateDto.getPricePerDay()!= null) vehicle.setPricePerDay(vehicleUpdateDto.getPricePerDay());
+        if(vehicleUpdateDto.getImageUrl()!= null) vehicle.setImageUrl(vehicleUpdateDto.getImageUrl());
 
         return this.vehicleRepository.save(vehicle);
     }
