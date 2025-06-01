@@ -6,10 +6,13 @@ import com.models.Customer;
 import com.repos.CustomerRepository;
 import com.utils.PasswordUtil;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerService {
+public class CustomerService implements UserDetailsService {
     private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
@@ -39,5 +42,13 @@ public class CustomerService {
             return new CustomerDTO(customer.getEmail(), customer.getName(), "CUSTOMER");
         }
         return null;
+    }
+
+    @Override
+    public Customer loadUserByUsername(String email) throws UsernameNotFoundException {
+        Customer customer = customerRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Customer not found with email: " + email));
+
+        return customer; // Customer must implement UserDetails
     }
 }

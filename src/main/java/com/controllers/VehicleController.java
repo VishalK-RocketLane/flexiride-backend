@@ -38,12 +38,12 @@ public class VehicleController {
         return vehicleService.createVehicle(vehicle);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/edit/{id}")
     public Vehicle updateVehicle(@PathVariable UUID id, @RequestBody VehicleUpdateDTO vehicleUpdateDto){
         return vehicleService.updateVehicle(id, vehicleUpdateDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteVehicle(@PathVariable UUID id){
         vehicleService.deleteVehicle(id);
     }
