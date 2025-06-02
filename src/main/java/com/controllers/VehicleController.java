@@ -56,9 +56,9 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteVehicle(@PathVariable UUID id){
+    public Vehicle deleteVehicle(@PathVariable UUID id){
         if(checkIfAdmin()){
-            vehicleService.deleteVehicle(id);
+            return vehicleService.deleteVehicle(id);
         }
         throw new AccessDeniedException("You are not allowed to delete this vehicle");
     }

@@ -42,8 +42,12 @@ public class VehicleService {
         return this.vehicleRepository.save(vehicle);
     }
 
-    public void deleteVehicle(UUID id) {
-        this.vehicleRepository.deleteById(id);
+    public Vehicle deleteVehicle(UUID id) {
+        Vehicle vehicle = this.vehicleRepository.findById(id).orElse(null);
+        if(vehicle != null) {
+            this.vehicleRepository.deleteById(id);
+        }
+        return vehicle;
     }
 
     public Vehicle updateVehicle(UUID id, VehicleUpdateDTO vehicleUpdateDto) {
