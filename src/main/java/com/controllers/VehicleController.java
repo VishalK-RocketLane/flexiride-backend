@@ -4,6 +4,8 @@ import com.dtos.vehicle.VehicleFilterDTO;
 import com.dtos.vehicle.VehicleUpdateDTO;
 import com.models.Vehicle;
 import com.services.VehicleService;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,10 @@ public class VehicleController {
     
     public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
+    }
+
+    private boolean checkIfAdmin() {
+        return SecurityContextHolder.getContext().getAuthentication().getName().toLowerCase().equals("admin@gmail.com");
     }
 
     @GetMapping
@@ -35,16 +41,25 @@ public class VehicleController {
 
     @PostMapping("/create")
     public Vehicle createVehicle(@RequestBody Vehicle vehicle){
-        return vehicleService.createVehicle(vehicle);
+        if(checkIfAdmin()){
+            return vehicleService.createVehicle(vehicle);
+        }
+        throw new AccessDeniedException("You are not allowed to create a vehicle");
     }
 
     @PostMapping("/edit/{id}")
     public Vehicle updateVehicle(@PathVariable UUID id, @RequestBody VehicleUpdateDTO vehicleUpdateDto){
-        return vehicleService.updateVehicle(id, vehicleUpdateDto);
+        if(checkIfAdmin()){
+            return vehicleService.updateVehicle(id, vehicleUpdateDto);
+        }
+        throw new AccessDeniedException("You are not allowed to edit this vehicle");
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteVehicle(@PathVariable UUID id){
-        vehicleService.deleteVehicle(id);
+        if(checkIfAdmin()){
+            vehicleService.deleteVehicle(id);
+        }
+        throw new AccessDeniedException("You are not allowed to delete this vehicle");
     }
 }

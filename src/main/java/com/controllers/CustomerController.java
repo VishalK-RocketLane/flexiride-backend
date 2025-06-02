@@ -1,12 +1,12 @@
 package com.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import com.models.Customer;
 import com.services.CustomerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -19,9 +19,15 @@ public class CustomerController {
     }
 
     @GetMapping("/{email}")
-    public Customer getCustomerFromEmail(@RequestParam String email) {
-        Customer customer = customerService.getCustomerByEmail(email);
-        customer.setHashedPassword(null);
-        return customer;
+    public Customer getCustomerFromEmail(@PathVariable String email) {
+        if(SecurityContextHolder.getContext().getAuthentication().getName().toLowerCase().equals(email.toLowerCase())
+        || SecurityContextHolder.getContext().getAuthentication().getName().toLowerCase().equals("admin@gmail.com")) {
+            Customer customer = customerService.getCustomerByEmail(email);
+            customer.setHashedPassword(null);
+            return customer;
+        }
+        else{
+            throw new AccessDeniedException("You are not allowed to access this resource");
+        }
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CustomerService implements UserDetailsService {
     private final CustomerRepository customerRepository;
@@ -34,6 +36,10 @@ public class CustomerService implements UserDetailsService {
 
     public Customer getCustomerByEmail(String email) {
         return customerRepository.findByEmail(email).orElse(null);
+    }
+
+    public Customer getCustomerById(UUID id) {
+        return customerRepository.findById(id).orElse(null);
     }
 
     public CustomerDTO authenticate(String email, String password) {
